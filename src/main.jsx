@@ -13,7 +13,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <CssVarsProvider theme={theme}>
       <CssBaseline />
         <RouterProvider router={router} />
-      <ToastContainer theme="colored" />
+      <ToastContainer theme="colored" pauseOnFocusLoss={false} />
     </CssVarsProvider>
   </React.StrictMode>,
 )

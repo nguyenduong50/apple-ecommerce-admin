@@ -64,7 +64,7 @@ const HomePage = () => {
   ];
 
   return (
-    <Box sx={{ padding: '20px' }}>
+    <Box>
       <Box>
         <Grid container spacing={0}>
           <Grid item xs={4}>
@@ -98,7 +98,9 @@ const HomePage = () => {
       </Box>
 
       <div style={{ marginTop: '30px', boxShadow: boxShadow, padding: '20px' }}>
-        <Typography display={{fontSize: '20px', fontWeight: 'bold', marginBottom: '30px'}}>History</Typography>
+        <Typography display={{fontSize: '20px', fontWeight: 'bold', marginBottom: '30px'}}>
+          History
+        </Typography>
         <DataGrid
           rows={rows}
           columns={columns}

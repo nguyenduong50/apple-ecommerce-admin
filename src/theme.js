@@ -59,13 +59,12 @@ const theme = extendTheme({
       styleOverrides: {
         root: ({theme}) => ({
           color: theme.palette.primary.main,
-          // fontSize: '0.875rem',
           '.MuiOutlinedInput-notchedOutline': {
             borderColor: theme.palette.primary.light
           },
           '&:hover': {
             '.MuiOutlinedInput-notchedOutline': {
-              borderColor: theme.palette.primary.main
+              borderColor: theme.palette.primary.light
             }
           },
           '& fieldset' : {

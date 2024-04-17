@@ -13,7 +13,7 @@ const RootLayout = () => {
         <Grid item xs={2}>
           <Sidebar />
         </Grid>
-        <Grid item xs={10}>
+        <Grid item xs={10} sx={{ padding: '30px' }}>
           <Outlet />
         </Grid>
       </Grid>
