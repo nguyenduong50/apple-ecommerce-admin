@@ -6,14 +6,14 @@ import Stack from '@mui/material/Stack';
 import { Typography, Button } from '@mui/material';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import { fetchUpdateProductAPI } from '~/api';
+import { fetchUpdateProductAPI } from '~/api/product';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import ErrorModal from '~/components/UI/ErrorModal';
 import { toast } from 'react-toastify';
-import { fetchProductDetailsAPI } from '~/api';
+import { fetchProductDetailsAPI } from '~/api/product';
 import { API_ROOT } from '~/utils/const';
 
 const EditProductPage = () => {

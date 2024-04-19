@@ -7,6 +7,7 @@ import ProductPage from "~/pages/Products";
 import OrderPage from "~/pages/Orders";
 import CreateProductPage from "~/pages/Products/create";
 import EditProductPage from "~/pages/Products/edit";
+import Login from "../pages/Auth/login";
 
 import {action as createProduct} from '~/pages/Products/create';
 import {action as editProduct} from '~/pages/Products/edit';
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: '/login',
+    element: <Login />
+  }
 ]);
 
 export default router;

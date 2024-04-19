@@ -2,7 +2,7 @@ import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
-import { fetchUserAPI } from '~/api';
+import { fetchUserAPI } from '~/api/user';
 
 const UserPage = () => {
   const [listUser, setListUser] = useState([]);

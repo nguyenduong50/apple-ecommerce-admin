@@ -2,7 +2,7 @@ import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
-import { fetchProductAPI, fetchDeleteProductAPI } from '~/api';
+import { fetchProductAPI, fetchDeleteProductAPI } from '~/api/product';
 import { Button } from '@mui/material'
 import { convertCurrency } from '~/utils/convertCurrency';
 import { useNavigate } from 'react-router-dom';

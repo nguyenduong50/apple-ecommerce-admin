@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import { Typography, Button } from '@mui/material';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import { fetchCreateProductAPI } from '~/api';
+import { fetchCreateProductAPI } from '~/api/product';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
