@@ -6,14 +6,16 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import defaultAvatar from '~/assets/images/users/default-avatar.png';
+import { logoutAPI } from '~/api/auth';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
   const [isOpenMenuProfile, setIsOpenMenuProfile] = useState(null);
   const open = Boolean(isOpenMenuProfile);
+  const navigate = useNavigate();
 
   const handleClickMenuProfile = (event) => {
     setIsOpenMenuProfile(event.currentTarget);
@@ -22,6 +24,12 @@ const Profile = () => {
   const handleCloseMenuProfile = () => {
     setIsOpenMenuProfile(null);
   };
+
+  const logoutHandle = async() => {
+    await logoutAPI();
+    setIsOpenMenuProfile(null);
+    navigate('/login');
+  }
 
   return (
     <>
@@ -73,25 +81,16 @@ const Profile = () => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={handleCloseMenuProfile}>
-          <Avatar /> Profile
-        </MenuItem>
-        <MenuItem onClick={handleCloseMenuProfile}>
-          <Avatar /> My account
+          <Avatar /> {JSON.parse(localStorage.getItem('currentUser')).name || ''}
         </MenuItem>
         <Divider />
-        <MenuItem onClick={handleCloseMenuProfile}>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          Add another account
-        </MenuItem>
         <MenuItem onClick={handleCloseMenuProfile}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem onClick={handleCloseMenuProfile}>
+        <MenuItem onClick={logoutHandle}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>

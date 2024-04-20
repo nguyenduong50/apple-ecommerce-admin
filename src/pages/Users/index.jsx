@@ -13,7 +13,13 @@ const UserPage = () => {
     { field: 'name', headerName: 'Name', minWidth: 70, flex: 1 },
     { field: 'email', headerName: 'Email', minWidth: 130, flex: 1 },
     { field: 'role', headerName: 'Role', minWidth: 90, flex: 1 },
-    { field: 'createdAt', headerName: 'Created at', minWidth: 90, flex: 1},
+    { 
+      field: 'createdAt', 
+      headerName: 'Created at', 
+      minWidth: 90, 
+      flex: 1,
+      valueGetter: (value) => value
+    },
     { 
       field: 'updatedAt', 
       headerName: 'Updated at', 
@@ -39,11 +45,11 @@ const UserPage = () => {
         let createdDate = new Date(user.createdAt);  
         let updatedDate = null
 
-        user.createdAt = createdDate.getDay() + '/' + createdDate.getMonth() + '/' + createdDate.getFullYear();
+        user.createdAt = createdDate.getDate() + '/' + (createdDate.getMonth() + 1) + '/' + createdDate.getFullYear();
 
         if(user.updatedAt !== null){
           updatedDate = new Date(user.updatedAt);
-          user.updatedAt = updatedDate.getDay() + '/' + updatedDate.getMonth() + '/' + updatedDate.getFullYear();
+          user.updatedAt = updatedDate.getDate() + '/' + (updatedDate.getMonth() + 1) + '/' + updatedDate.getFullYear();
         }
 
         return user

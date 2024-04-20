@@ -11,12 +11,14 @@ import Login from "../pages/Auth/login";
 
 import {action as createProduct} from '~/pages/Products/create';
 import {action as editProduct} from '~/pages/Products/edit';
+import { checkAuthLoader } from "~/utils/auth";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
     errorElement: <ErrorPage />,
+    loader: checkAuthLoader,
     children: [
       {
         index: true,

@@ -62,7 +62,7 @@ const HomePage = () => {
     { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
     { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
   ];
-  console.log('cookies: ', document.cookie);
+
   return (
     <Box>
       <Box>
