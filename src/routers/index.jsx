@@ -7,11 +7,13 @@ import ProductPage from "~/pages/Products";
 import OrderPage from "~/pages/Orders";
 import CreateProductPage from "~/pages/Products/create";
 import EditProductPage from "~/pages/Products/edit";
-import Login from "../pages/Auth/login";
+import Login from "~/pages/Auth/login";
+import ChatPage from "~/pages/Chat/Chat";
 
 import {action as createProduct} from '~/pages/Products/create';
 import {action as editProduct} from '~/pages/Products/edit';
 import { checkAuthLoader } from "~/utils/auth";
+import { authorize } from "~/utils/authorize";
 
 const router = createBrowserRouter([
   {
@@ -21,15 +23,18 @@ const router = createBrowserRouter([
     loader: checkAuthLoader,
     children: [
       {
-        index: true,
+        index: true,       
         element: <HomePage />,
+        loader: authorize
       },
       {
         path: 'user',
         element: <UserPage />,
+        loader: authorize
       },
       {
         path: 'product',
+        loader: authorize,
         children: [
           {
             index: true,
@@ -50,6 +55,11 @@ const router = createBrowserRouter([
       {
         path: 'order',
         element: <OrderPage />,
+        loader: authorize
+      },
+      {
+        path: 'chat',
+        element: <ChatPage />,
       },
     ],
   },

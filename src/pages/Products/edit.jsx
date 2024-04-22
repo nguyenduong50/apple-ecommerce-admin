@@ -232,7 +232,7 @@ export const action = async ({ request, params }) => {
 
   try {
     await fetchUpdateProductAPI(params.id, product);
-    toast.success("Create product successfully!");
+    toast.success("Update product successfully!");
     return redirect('/product');
   } catch (error) {
     console.log(error.response.data)

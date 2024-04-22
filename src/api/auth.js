@@ -22,5 +22,8 @@ export const logoutAPI = async() => {
   localStorage.removeItem('currentUser');
   localStorage.removeItem('expiration');
 
+  document.cookie = 'accessToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;domain=localhost:3001;'
+  document.cookie = 'connect.sid=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;domain=localhost:3001;'
+
   return response.data;
 }
