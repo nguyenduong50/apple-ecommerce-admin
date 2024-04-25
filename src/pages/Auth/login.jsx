@@ -56,7 +56,14 @@ const Login = () => {
           <Typography variant="h3" style={{ textAlign: 'center', fontWeight: 'bold' }}>Admin</Typography>
           <TextField type="text" label="email" variant="outlined" value={email} onChange={(event) => setEmail(event.target.value)} required />
           <TextField type="password" label="password" variant="outlined" value={password} onChange={(event) => setPassword(event.target.value)} required />
-          <Button variant="contained" size="large" onClick={loginHandle}>Login</Button>
+          <Button 
+            variant="contained" 
+            size="large" 
+            onClick={loginHandle}
+            onKeyDown={e => e.key === 'Enter' ? loginHandle: ''}
+          >
+            Login
+          </Button>
         </Box>
       }
     </>

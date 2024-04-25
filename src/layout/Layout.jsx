@@ -10,7 +10,7 @@ import { logoutAPI } from '~/api/auth';
 const RootLayout = () => {
   const token = tokenLoader();
   const navigate = useNavigate();
-
+  
   
   const logoutHandle = async () => {
     await logoutAPI();
@@ -32,7 +32,7 @@ const RootLayout = () => {
     setTimeout(() => {
       logoutHandle();
     }, tokenDuration)
-  }, [token]);
+  }, [token, logoutHandle]);
 
   return (
     <>
