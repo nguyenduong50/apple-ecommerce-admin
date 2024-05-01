@@ -3,14 +3,13 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Header from '~/components/Header';
 import Sidebar from '~/components/Sidebar';
-import { useEffect } from 'react';
 import { tokenLoader, getTokenDuration } from '~/utils/auth';
 import { logoutAPI } from '~/api/auth';
+import { useEffect } from "react";
 
 const RootLayout = () => {
   const token = tokenLoader();
   const navigate = useNavigate();
-  
   
   const logoutHandle = async () => {
     await logoutAPI();
@@ -36,6 +35,8 @@ const RootLayout = () => {
 
   return (
     <>
+    {
+      token &&
       <Box sx={{ flexGrow: 1 }}>
         <Header />
         <Grid container spacing={0}>
@@ -47,6 +48,7 @@ const RootLayout = () => {
           </Grid>
         </Grid>
       </Box>
+    }
     </>
   );
 };

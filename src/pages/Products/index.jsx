@@ -76,7 +76,7 @@ const ProductPage = () => {
       flex: 1,
       valueGetter: (value) => convertCurrency(value)
     },
-    { field: 'quantity', headerName: 'Quantity', minWidth: 200, flex: 1 },
+    { field: 'quantity', headerName: 'Quantity', minWidth: 20, flex: 1 },
     { 
       field: 'images', 
       headerName: 'Image', 
@@ -96,8 +96,8 @@ const ProductPage = () => {
       field: "action",
       headerName: "Action",
       sortable: false,
-      minWidth: 150, 
-      flex: 1,
+      minWidth: 200, 
+      flex: 2,
       renderCell: (row) => {
         return (
           <>

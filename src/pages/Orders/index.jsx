@@ -4,13 +4,15 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
 import { fetchOrderAPI } from '~/api/order';
 import { Button } from '@mui/material'
+import { useNavigate } from 'react-router-dom';
 
 const OrderPage = () => {
   const [listOrder, setListOrder] = useState([]);
   const boxShadow = '0 2px 4px 0 rgba(158, 158, 158, 0), 0 2px 15px 0 rgba(0, 0, 0, 0.1)';
+  const navigate = useNavigate();
 
-  const viewOrderHandle = () => {
-
+  const viewOrderHandle = (orderId) => {
+    navigate('/order/' + orderId);
   }
 
   const columns = [
@@ -28,14 +30,14 @@ const OrderPage = () => {
     },
     {
       field: "action",
-      headerName: "Action",
+      headerName: "Detail",
       sortable: false,
       minWidth: 100, 
       flex: 1,
       renderCell: (row) => {
         return (
           <>
-            <Button variant="contained" size="small" style={{marginRight: '5px'}} onClick={() => viewOrderHandle(row.id)}>View Details</Button>
+            <Button variant="contained" size="small" color="success" style={{marginRight: '5px'}} onClick={() => viewOrderHandle(row.id)}>View</Button>
           </>
       );
       }

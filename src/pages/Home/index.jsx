@@ -4,8 +4,24 @@ import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
 import { DataGrid } from '@mui/x-data-grid';
+import { useEffect, useState } from 'react';
+import { fetchUserCustomerAPI } from '~/api/user';
+import { convertCurrency } from '~/utils/convertCurrency';
+import { Button } from '@mui/material'
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
+  const [client, setClient] = useState(1);
+  const [earnning, setEarning] = useState(0);
+  const [newOrder, setNewOrder] = useState(0);
+  const [listOrder, setListOrder] = useState([]);
+
+  const navigate = useNavigate();
+
+  const viewOrderHandle = (orderId) => {
+    navigate('/order/' + orderId);
+  }
+
   const boxShadow = '0 2px 4px 0 rgba(158, 158, 158, 0), 0 2px 15px 0 rgba(0, 0, 0, 0.1)';
   const cssInfoBoardItem = {
     display: 'flex',
@@ -32,36 +48,64 @@ const HomePage = () => {
   }
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'firstName', headerName: 'First name', width: 130 },
-    { field: 'lastName', headerName: 'Last name', width: 130 },
-    {
-      field: 'age',
-      headerName: 'Age',
-      type: 'number',
-      width: 90,
+    { field: 'userId', headerName: 'userId', minWidth: 70, flex: 1 },
+    { field: 'name', headerName: 'Name', minWidth: 80, flex: 1 },
+    { field: 'phone', headerName: 'Phone', minWidth: 90, flex: 1 },
+    { field: 'address', headerName: 'Address', minWidth: 150, flex: 1 },
+    { 
+      field: 'totalOrder', 
+      headerName: 'Total', 
+      minWidth: 150, 
+      flex: 1,
+      valueGetter: (value) => convertCurrency(value) 
+    },
+    { 
+      field: "delivery", 
+      headerName: 'Delivery', 
+      sortable: false,
+      minWidth: 150, 
+      flex: 1, 
+      renderCell: () => {return (<>Waiting for progresing</>)} 
+    },
+    { 
+      field: "status", 
+      headerName: 'Status', 
+      sortable: false,
+      minWidth: 150, 
+      flex: 1, 
+      renderCell: () => {return (<>Waiting for pay</>)}  
     },
     {
-      field: 'fullName',
-      headerName: 'Full name',
-      description: 'This column has a value getter and is not sortable.',
+      field: "action",
+      headerName: "Detail",
       sortable: false,
-      width: 160,
-      valueGetter: (value, row) => `${row.firstName || ''} ${row.lastName || ''}`,
+      minWidth: 100, 
+      flex: 1,
+      renderCell: (row) => {
+        return (
+          <>
+            <Button variant="contained" size="small" color="success" style={{marginRight: '5px'}} onClick={() => viewOrderHandle(row.id)}>View</Button>
+          </>
+      );
+      }
     },
   ];
 
-  const rows = [
-    { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-    { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-    { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-    { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-    { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-  ];
+  useEffect(() => {
+    const fetchUserCustomer = async() => {
+      try {
+        const response = await fetchUserCustomerAPI();
+        setClient(response.client)
+        setEarning(response.totalEarningMonth)
+        setNewOrder(response.newOrder)
+        setListOrder(response.orders)
+      } catch (error) {
+        console.log(error.response.data)
+      }
+    }
+
+    fetchUserCustomer();
+  }, [])
 
   return (
     <Box>
@@ -70,7 +114,7 @@ const HomePage = () => {
           <Grid item xs={4}>
             <Box sx={cssInfoBoardItem}>
               <Stack>
-                <span style={cssQuantity}>2</span>
+                <span style={cssQuantity}>{client}</span>
                 <span style={cssInfoBoardItemName}>Clients</span>
               </Stack>
               <PersonAddAltIcon style={cssInfoBoardItemIcon} />
@@ -79,7 +123,7 @@ const HomePage = () => {
           <Grid item xs={4}>
             <Box sx={cssInfoBoardItem}>
               <Stack>
-                <span style={cssQuantity}>50.000.000<sup style={{ fontSize: '14px' }}>VND</sup></span>
+                <span style={cssQuantity}>{convertCurrency(earnning)}</span>
                 <span style={cssInfoBoardItemName}>Earnings of Month</span>
               </Stack>
               <AttachMoneyIcon style={cssInfoBoardItemIcon} />
@@ -88,7 +132,7 @@ const HomePage = () => {
           <Grid item xs={4}>
             <Box sx={cssInfoBoardItem}>
               <Stack>
-                <span style={cssQuantity}>2</span>
+                <span style={cssQuantity}>{newOrder}</span>
                 <span style={cssInfoBoardItemName}>New Order</span>
               </Stack>
               <NoteAddOutlinedIcon style={cssInfoBoardItemIcon} />
@@ -102,7 +146,8 @@ const HomePage = () => {
           History
         </Typography>
         <DataGrid
-          rows={rows}
+          rows={listOrder}
+          getRowId={(row) => row._id}
           columns={columns}
           initialState={{
             pagination: {

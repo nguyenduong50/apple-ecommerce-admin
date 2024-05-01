@@ -9,6 +9,7 @@ import CreateProductPage from "~/pages/Products/create";
 import EditProductPage from "~/pages/Products/edit";
 import Login from "~/pages/Auth/login";
 import ChatPage from "~/pages/Chat/Chat";
+import OrderDetailPage from "~/pages/Orders/details";
 
 import {action as createProduct} from '~/pages/Products/create';
 import {action as editProduct} from '~/pages/Products/edit';
@@ -54,8 +55,17 @@ const router = createBrowserRouter([
       },
       {
         path: 'order',
-        element: <OrderPage />,
-        loader: authorize
+        loader: authorize,
+        children: [
+          {
+            index: true,
+            element: <OrderPage />
+          },
+          {
+            path: ':id',
+            element: <OrderDetailPage />
+          }
+        ]
       },
       {
         path: 'chat',
