@@ -210,10 +210,10 @@ export const action = async ({ request }) => {
     images: data.getAll('images')
   }
 
-  const listImageFile = data.getAll('images');
-  for(let i = 0; i <= listImageFile.length - 1; i++){
-    data.append("images", listImageFile[i]);
-  }
+  // const listImageFile = data.getAll('images');
+  // for(let i = 0; i <= listImageFile.length - 1; i++){
+  //   data.append("images", listImageFile[i]);
+  // }
 
   if(
     newProduct.name !== '' && 

@@ -16,6 +16,10 @@ const ChatPage = () => {
 
   const joinRoomChat = async(roomChatId) => {
     try {
+      const currentRoom = localStorage.getItem('currentRoom') || '';
+      if(currentRoom !== ''){
+        socket.emit('leave-room', currentRoom);
+      }
       setMessages([]);
       const response = await fetchMessageRoomAPI(roomChatId);
       setMessages(response)
@@ -53,6 +57,10 @@ const ChatPage = () => {
         setMessages(prev => prev.concat(data))
       }
     })
+
+    // return () => {
+    //   socket.disconnect();
+    // };
   },[socket, currentUser])
 
   useEffect(() => {
@@ -66,6 +74,10 @@ const ChatPage = () => {
     }
 
     fetchRoomChat();
+
+    return () => {
+      socket.disconnect();
+    };
   }, [])
 
   return (
