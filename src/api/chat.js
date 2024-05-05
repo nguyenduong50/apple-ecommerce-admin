@@ -6,10 +6,10 @@ export const fetchRoomChatAPI = async() => {
   return response.data
 }
 
-export const fetchMessageRoomAPI = async(roomId) => {
+export const fetchMessageRoomAPI = async(userId) => {
   const response = await axios.post(
     `${API_ROOT}/v1/message`, 
-    {roomId: roomId},
+    {userId: userId},
     {withCredentials: 'include'}
   )
   return response.data

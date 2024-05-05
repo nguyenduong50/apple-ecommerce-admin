@@ -1,6 +1,11 @@
 import axios from "axios";
 import { API_ROOT } from "~/utils/const";
 
+export const fetchCsrfProductAPI = async() => {
+  const response = await axios.get(`${API_ROOT}/form`, {withCredentials: 'include'})
+  return response.data
+}
+
 export const fetchProductAPI = async() => {
   const response = await axios.get(`${API_ROOT}/v1/product`, {withCredentials: 'include'})
   return response.data
@@ -21,8 +26,18 @@ export const fetchProductDetailsAPI = async(id) => {
   return response.data
 }
 
-export const fetchUpdateProductAPI = async(id, product) => {
-  const response = await axios.put(`${API_ROOT}/v1/product/${id}`, product, {withCredentials: 'include'})
+export const fetchUpdateProductAPI = async(id, product, csrfToken) => {
+  console.log(csrfToken);
+  const response = await axios.put(
+    `${API_ROOT}/v1/product/${id}`, 
+    product, 
+    {
+      headers: {
+        'xsrf-token': csrfToken
+      },
+      withCredentials: 'include'
+    }
+  )
   return response.data
 }
 

@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import { Typography, Button } from '@mui/material';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import { fetchUpdateProductAPI } from '~/api/product';
+import { fetchCsrfProductAPI, fetchUpdateProductAPI } from '~/api/product';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
@@ -20,6 +20,7 @@ const EditProductPage = () => {
   const data = useActionData();
   const [error, setError] = useState(null);
   const [product, setProduct] = useState(null);
+  const [csrfToken, setCsrfToken] = useState('');
   const boxShadow = '0 2px 4px 0 rgba(158, 158, 158, 0), 0 2px 15px 0 rgba(0, 0, 0, 0.1)';
   const params = useParams() 
 
@@ -70,6 +71,15 @@ const EditProductPage = () => {
   const longDescriptionChangeHandle = (event) => {
     setLongDescription(event.target.value);
   }
+
+  useEffect(() => {
+    const fetchCSRF = async() => {
+      const data = await fetchCsrfProductAPI()
+      setCsrfToken(data.csrfToken)
+    }
+
+    fetchCSRF()
+  }, [])
 
   useEffect(() => {
     let errorTem = data?.message.split(". ");
@@ -191,6 +201,7 @@ const EditProductPage = () => {
             ))}
           </ImageList>
         </Stack>
+        <input type="hidden" value={csrfToken} name="_csrf" />
         <Button
           variant="contained"
           size="medium"
@@ -210,6 +221,7 @@ export default EditProductPage;
 export const action = async ({ request, params }) => {
   const data = await request.formData();
 
+  const csrfToken = data.get('_csrf');
   const product = {
     name: data.get('name'),
     category: data.get('category'),
@@ -231,7 +243,7 @@ export const action = async ({ request, params }) => {
   }
 
   try {
-    await fetchUpdateProductAPI(params.id, product);
+    await fetchUpdateProductAPI(params.id, product, csrfToken);
     toast.success("Update product successfully!");
     return redirect('/product');
   } catch (error) {
