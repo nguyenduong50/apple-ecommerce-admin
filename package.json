@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "cross-env BUILD_MODE=dev vite --port=3001",
+    "dev": "cross-env BUILD_MODE=development vite --port=3001",
     "build": "cross-env BUILD_MODE=production vite build --base=./",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
